@@ -231,7 +231,7 @@ export default function App() {
     // Redirect to checkout (using the provided link as base)
     let checkoutUrl = '';
     if (plan === 'basic') checkoutUrl = 'https://pay.hotmart.com/O105083025W?checkoutMode=10';
-    else if (plan === 'complete') checkoutUrl = 'https://pay.hotmart.com/A105082392E?checkoutMode=10';
+    else if (plan === 'complete') checkoutUrl = 'https://pay.hotmart.com/A105082392E?off=d2b72cel&checkoutMode=10';
     else if (plan === 'upgrade') checkoutUrl = 'https://pay.hotmart.com/A105082392E?checkoutMode=10';
     
     window.location.href = checkoutUrl;
