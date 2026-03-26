@@ -27,29 +27,32 @@ const CountdownTimer = () => {
 
   useEffect(() => {
     const timer = setInterval(() => {
-      if (timeLeft.seconds > 0) {
-        setTimeLeft({ ...timeLeft, seconds: timeLeft.seconds - 1 });
-      } else if (timeLeft.minutes > 0) {
-        setTimeLeft({ minutes: timeLeft.minutes - 1, seconds: 59 });
-      }
+      setTimeLeft(prev => {
+        if (prev.seconds > 0) {
+          return { ...prev, seconds: prev.seconds - 1 };
+        } else if (prev.minutes > 0) {
+          return { minutes: prev.minutes - 1, seconds: 59 };
+        }
+        return prev;
+      });
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [timeLeft]);
+  }, []);
 
   const formatNumber = (num: number) => num.toString().padStart(2, '0');
 
   return (
-    <div className="bg-red-600 text-white py-2 px-4 text-center sticky top-0 z-50 shadow-lg">
-      <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4">
-        <p className="text-sm font-bold uppercase tracking-wider flex items-center gap-2">
-          <Zap className="h-4 w-4 animate-pulse fill-white" />
+    <div className="bg-red-600 text-white py-1.5 sm:py-2 px-4 text-center sticky top-0 z-50 shadow-lg">
+      <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-4">
+        <p className="text-[10px] sm:text-sm font-bold uppercase tracking-wider flex items-center gap-2">
+          <Zap className="h-3 w-3 sm:h-4 sm:w-4 animate-pulse fill-white" />
           Atenção: O desconto de lançamento expira em:
         </p>
-        <div className="flex items-center gap-1 font-mono text-lg font-black">
-          <div className="bg-white/20 px-2 py-0.5 rounded">{formatNumber(timeLeft.minutes)}</div>
+        <div className="flex items-center gap-1 font-mono text-base sm:text-lg font-black">
+          <div className="bg-white/20 px-1.5 py-0.5 rounded">{formatNumber(timeLeft.minutes)}</div>
           <span>:</span>
-          <div className="bg-white/20 px-2 py-0.5 rounded">{formatNumber(timeLeft.seconds)}</div>
+          <div className="bg-white/20 px-1.5 py-0.5 rounded">{formatNumber(timeLeft.seconds)}</div>
         </div>
       </div>
     </div>
@@ -93,61 +96,61 @@ const UpsellPage = ({ onAccept, onDecline }: { onAccept: () => void, onDecline: 
   return (
     <div className="fixed inset-0 z-[100] bg-white overflow-y-auto flex flex-col items-center py-12 px-4 font-sans">
       <div className="max-w-3xl w-full text-center">
-        <h1 className="text-3xl md:text-6xl font-black text-slate-900 mb-12 leading-tight uppercase tracking-tighter">
+        <h1 className="text-2xl md:text-5xl font-black text-slate-900 mb-8 leading-tight uppercase tracking-tighter">
           FAÇA O UPGRADE NO SEU MATERIAL E POR MAIS R$10 LEVE MAIS BÔNUS.
         </h1>
 
-        <div className="text-left space-y-6 mb-12 inline-block max-w-xl">
-          <ul className="space-y-4 text-lg md:text-2xl text-slate-700 font-medium">
-            <li className="flex items-center gap-4">
-              <CheckCircle2 className="h-7 w-7 text-emerald-500 shrink-0" />
+        <div className="text-left space-y-4 mb-8 inline-block max-w-xl">
+          <ul className="space-y-3 text-base md:text-2xl text-slate-700 font-medium">
+            <li className="flex items-center gap-3">
+              <CheckCircle2 className="h-6 w-6 text-emerald-500 shrink-0" />
               <span>50 Receitas Cardioprotetoras</span>
             </li>
-            <li className="flex items-center gap-4">
-              <CheckCircle2 className="h-7 w-7 text-emerald-500 shrink-0" />
+            <li className="flex items-center gap-3">
+              <CheckCircle2 className="h-6 w-6 text-emerald-500 shrink-0" />
               <span>Plano de Refeições 21 Dias</span>
             </li>
-            <li className="flex items-center gap-4">
-              <CheckCircle2 className="h-7 w-7 text-emerald-500 shrink-0" />
+            <li className="flex items-center gap-3">
+              <CheckCircle2 className="h-6 w-6 text-emerald-500 shrink-0" />
               <span>Checklist de Monitoramento</span>
             </li>
-            <li className="flex items-center gap-4 font-black text-emerald-600">
-              <Zap className="h-7 w-7 shrink-0 fill-emerald-600" />
+            <li className="flex items-center gap-3 font-black text-emerald-600">
+              <Zap className="h-6 w-6 shrink-0 fill-emerald-600" />
               <span>+ BONUS EXTRA: 20 RECEITAS ITALIANAS ANTI-HIPERTENSÃO</span>
             </li>
-            <li className="flex items-center gap-4 font-black text-emerald-600">
-              <Zap className="h-7 w-7 shrink-0 fill-emerald-600" />
+            <li className="flex items-center gap-3 font-black text-emerald-600">
+              <Zap className="h-6 w-6 shrink-0 fill-emerald-600" />
               <span>+ BONUS EXTRA: 20 RECEITAS FRANCESAS ANTI-HIPERTENSÃO</span>
             </li>
           </ul>
 
-          <div className="mt-10 pt-10 border-t-2 border-slate-100 space-y-4 text-slate-800 font-bold text-xl">
-            <div className="flex items-center gap-4">
-              <CheckCircle2 className="h-6 w-6 text-emerald-500" />
+          <div className="mt-8 pt-8 border-t-2 border-slate-100 space-y-3 text-slate-800 font-bold text-lg">
+            <div className="flex items-center gap-3">
+              <CheckCircle2 className="h-5 w-5 text-emerald-500" />
               <span>7 dias de garantia</span>
             </div>
-            <div className="flex items-center gap-4">
-              <CheckCircle2 className="h-6 w-6 text-emerald-500" />
+            <div className="flex items-center gap-3">
+              <CheckCircle2 className="h-5 w-5 text-emerald-500" />
               <span>Acesso vitalício</span>
             </div>
-            <div className="flex items-center gap-4">
-              <CheckCircle2 className="h-6 w-6 text-emerald-500" />
+            <div className="flex items-center gap-3">
+              <CheckCircle2 className="h-5 w-5 text-emerald-500" />
               <span>Atualizações futuras</span>
             </div>
           </div>
         </div>
 
-        <div className="flex flex-col gap-6 w-full max-w-md mx-auto mt-8">
+        <div className="flex flex-col gap-4 w-full max-w-md mx-auto mt-6">
           <button 
             onClick={onAccept}
-            className="bg-[#10a34d] hover:bg-emerald-700 text-white font-black py-6 px-8 rounded-2xl text-xl md:text-3xl shadow-2xl hover:scale-105 transition-all uppercase tracking-tight"
+            className="bg-[#10a34d] hover:bg-emerald-700 text-white font-black py-5 px-6 rounded-2xl text-lg md:text-3xl shadow-2xl hover:scale-105 transition-all uppercase tracking-tight"
           >
             SIM, EU QUERO O UPGRADE AGORA
           </button>
           
           <button 
             onClick={onDecline}
-            className="bg-[#d11a1a] hover:bg-red-700 text-white font-black py-5 px-8 rounded-2xl text-lg md:text-xl shadow-xl hover:scale-105 transition-all uppercase tracking-tight"
+            className="bg-[#d11a1a] hover:bg-red-700 text-white font-black py-4 px-6 rounded-2xl text-base md:text-xl shadow-xl hover:scale-105 transition-all uppercase tracking-tight"
           >
             NÃO, QUERO SOMENTE O PLANO BÁSICO.
           </button>
@@ -165,23 +168,31 @@ export default function App() {
   const [showUpsell, setShowUpsell] = useState(false);
   useEffect(() => {
     // Conversions API (Server-side) PageView
-    const trackPageView = async () => {
+    const trackPageView = async (isUpsell = false) => {
       try {
+        // Client-side Pixel
+        // @ts-ignore
+        if (typeof window.fbq !== 'undefined') {
+          // @ts-ignore
+          window.fbq('track', 'PageView');
+        }
+
         await fetch('/api/fb-event', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             eventName: 'PageView',
             userData: {},
-            customData: {}
+            customData: { isUpsell }
           })
         });
       } catch (error) {
         console.error('Failed to send Conversions API PageView:', error);
       }
     };
-    trackPageView();
-  }, []);
+    
+    trackPageView(showUpsell);
+  }, [showUpsell]);
 
   const handleCheckout = async (plan: 'basic' | 'complete' | 'upgrade') => {
     let value = 0;
@@ -219,9 +230,9 @@ export default function App() {
 
     // Redirect to checkout (using the provided link as base)
     let checkoutUrl = '';
-    if (plan === 'basic') checkoutUrl = 'https://pay.wiapy.com/o-touCprXt?plan=basic';
-    else if (plan === 'complete') checkoutUrl = 'https://pay.wiapy.com/o-touCprXt?plan=complete';
-    else if (plan === 'upgrade') checkoutUrl = 'https://pay.wiapy.com/o-touCprXt?plan=upgrade';
+    if (plan === 'basic') checkoutUrl = 'https://pay.hotmart.com/O105083025W?checkoutMode=10';
+    else if (plan === 'complete') checkoutUrl = 'https://pay.hotmart.com/A105082392E?checkoutMode=10';
+    else if (plan === 'upgrade') checkoutUrl = 'https://pay.hotmart.com/A105082392E?checkoutMode=10';
     
     window.location.href = checkoutUrl;
   };
@@ -317,10 +328,11 @@ export default function App() {
             <div className="relative">
               <div className="absolute inset-0 bg-red-600/10 blur-3xl rounded-full"></div>
               <img 
-                src="https://picsum.photos/seed/health-danger/600/800" 
+                src="https://i.ibb.co/zHmv9HnV/presao-alta.jpg" 
                 alt="Perigo da Hipertensão" 
                 className="rounded-3xl shadow-2xl relative z-10 grayscale hover:grayscale-0 transition-all duration-700"
                 referrerPolicy="no-referrer"
+                loading="lazy"
               />
             </div>
           </div>
@@ -388,6 +400,11 @@ export default function App() {
                 <p>
                   Diferente de tudo o que você já viu, o nosso método foca na <strong>limpeza das artérias</strong> e no reequilíbrio dos minerais essenciais no seu sangue.
                 </p>
+                <div className="bg-emerald-50 border-l-4 border-emerald-500 p-6 rounded-r-2xl my-6">
+                  <p className="text-emerald-900 font-bold text-sm md:text-base leading-relaxed">
+                    A dieta é baseada em estudos referendados pela <span className="text-emerald-600 underline decoration-2 underline-offset-4">OMS (Organização Mundial da Saúde)</span>, estabelecida como a melhor estratégia para pessoas com hipertensão.
+                  </p>
+                </div>
                 <p>
                   Não é uma dieta restritiva. É um <strong>ajuste estratégico</strong> na sua rotina que faz seu corpo entender que ele não precisa mais trabalhar sob pressão extrema.
                 </p>
@@ -425,15 +442,35 @@ export default function App() {
             Apresentamos o <br />
             <span className="text-emerald-600">Protocolo Anti-Hipertensão</span>
           </h3>
-          <p className="text-xl text-slate-600 mb-12 max-w-2xl mx-auto">
+          <p className="text-xl text-slate-600 mb-6 max-w-2xl mx-auto">
             O mapa completo e definitivo para você retomar o controle da sua saúde e viver sem o medo constante de um colapso.
           </p>
+          <div className="flex items-center justify-center gap-2 mb-12">
+            <ShieldCheck className="h-5 w-5 text-emerald-500" />
+            <span className="text-xs md:text-sm font-bold text-slate-500 uppercase tracking-widest">
+              Método Referendado pela OMS (Organização Mundial da Saúde)
+            </span>
+          </div>
           <img 
             src="https://i.ibb.co/fVWrDhJY/IMAGEM-DO-PRODUTO-Photoroom.webp" 
             alt="Protocolo Anti-Hipertensão" 
             className="w-full max-w-lg mx-auto drop-shadow-2xl mb-12"
             referrerPolicy="no-referrer"
+            loading="lazy"
           />
+          
+          <div className="flex flex-col items-center gap-4">
+            <button 
+              onClick={() => document.getElementById('oferta')?.scrollIntoView({ behavior: 'smooth' })}
+              className="bg-emerald-600 hover:bg-emerald-700 text-white px-10 py-5 rounded-2xl font-black text-xl shadow-[0_20px_50px_rgba(16,185,129,0.3)] transition-all hover:-translate-y-1 flex items-center gap-3 group"
+            >
+              Escolha o Seu Plano
+              <ArrowRight className="h-6 w-6 group-hover:translate-x-1 transition-transform" />
+            </button>
+            <p className="text-slate-500 font-bold text-lg md:text-xl">
+              Invista na sua saúde hoje e evite gastos médicos amanhã.
+            </p>
+          </div>
         </div>
       </section>
 
@@ -498,7 +535,7 @@ export default function App() {
                 </div>
                 <p className="text-slate-600 italic mb-8">"{dep.text}"</p>
                 <div className="flex items-center gap-4">
-                  <img src={dep.img} alt={dep.name} className="w-12 h-12 rounded-full object-cover border-2 border-emerald-500" referrerPolicy="no-referrer" />
+                  <img src={dep.img} alt={dep.name} className="w-12 h-12 rounded-full object-cover border-2 border-emerald-500" referrerPolicy="no-referrer" loading="lazy" />
                   <p className="font-bold text-slate-900">{dep.name}</p>
                 </div>
               </div>
@@ -545,6 +582,7 @@ export default function App() {
                   alt={bonus.title} 
                   className="max-w-full max-h-full object-contain drop-shadow-2xl group-hover:scale-110 transition-transform duration-500 relative z-10"
                   referrerPolicy="no-referrer"
+                  loading="lazy"
                 />
               </div>
               <div className="p-8 text-center flex flex-col items-center">
@@ -660,6 +698,7 @@ export default function App() {
             alt="Garantia" 
             className="w-40 h-40 object-contain"
             referrerPolicy="no-referrer"
+            loading="lazy"
           />
           <div>
             <h3 className="text-3xl font-black text-slate-900 mb-6">Sua Satisfação ou Seu Dinheiro de Volta</h3>
